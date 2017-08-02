@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 
 namespace FizzBuzz
 {
@@ -7,42 +8,47 @@ namespace FizzBuzz
     {
         [TestCase(1, "1")]
         [TestCase(2, "2")]
-        [TestCase(4, "4")]
-        [TestCase(7, "7")]
-        [TestCase(8, "8")]
-        public void ShouldReturnStringOfPassedIntValueWhenNotDivisbleByThreeOrFive(int input, string output)
+        public void ShouldReturnStringOfPassedInt(int input, string expected)
         {
-            Assert.AreEqual(output, FizzBuzz.ProduceStringFromInt(input));
+            Assert.AreEqual(expected, Main.FizzBuzz(input));
         }
-
 
         [TestCase(3)]
         [TestCase(6)]
-        [TestCase(9)]
-        [TestCase(12)]
-        [TestCase(18)]
-        public void ShouldReturnStringFizzWhenIntValueOnlyDivisibleByThree(int input)
+        public void ShouldReturnFizzOnIntsDivisibleByThree(int input)
         {
-            Assert.AreEqual("Fizz", FizzBuzz.ProduceStringFromInt(input));
+            Assert.AreEqual("Fizz", Main.FizzBuzz(input));
         }
 
 
         [TestCase(5)]
         [TestCase(10)]
-        [TestCase(20)]
-        [TestCase(25)]
-        public void ShouldReturnStringBuzzWhenIntValueOnlyDivisibleByFive(int input)
+        public void ShouldReturnBuzzOnIntsDivisibleByFive(int input)
         {
-            Assert.AreEqual("Buzz", FizzBuzz.ProduceStringFromInt(input));
+            Assert.AreEqual("Buzz", Main.FizzBuzz(input));
         }
 
 
         [TestCase(15)]
         [TestCase(30)]
-        [TestCase(45)]
-        public void ShouldReturnStringFizzBuzzWhenIntValueDivisibleByThreeAndFive(int input)
+        public void ShouldReturnFizzBuzzOnIntsDivisibleByThreeAndFive(int input)
         {
-            Assert.AreEqual("FizzBuzz", FizzBuzz.ProduceStringFromInt(input));
+            Assert.AreEqual("FizzBuzz", Main.FizzBuzz(input));
+        }
+
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void ShouldThrowExceptionWhenIntLessThanOnePassed(int input)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Main.FizzBuzz(input));
+        }
+
+
+        [Test]
+        public void ShouldThrowExceptionWhenIntGreaterThanOneHundredPassed()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Main.FizzBuzz(101));
         }
     }
 }
